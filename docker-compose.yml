@@ -112,7 +112,7 @@ services:
       - microservice-network
     restart: unless-stopped
 
-  #  Product Service Dev
+  #  Order Service Dev
   order-service-dev:
     image: order-service-dev:1.0
     build:
@@ -124,11 +124,11 @@ services:
     environment:
       - SPRING_APPLICATION_NAME=order-service
       - SPRING_PROFILES_ACTIVE=dev
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-order-dev:5432/productdb
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-order-dev:5432/orderdb
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
     depends_on:
-      postgres-product-dev:
+      postgres-order-dev:
         condition: service_healthy
     networks:
       - microservice-network
@@ -152,6 +152,8 @@ services:
         condition: service_started
       product-service-dev:
         condition: service_started
+      order-service-dev:
+        condition: service_started
     networks:
       - microservice-network
     restart: unless-stopped
@@ -165,4 +167,6 @@ volumes:
   postgres-user-dev-data:
     driver: local
   postgres-product-dev-data:
+    driver: local
+  postgres-order-dev-data:
     driver: local

@@ -1,4 +1,9 @@
-FROM ubuntu:latest
-LABEL authors="HP"
+FROM eclipse-temurin:17-jre
 
-ENTRYPOINT ["top", "-b"]
+WORKDIR /app
+
+COPY target/*.jar /app/order-service.jar
+
+EXPOSE 8083
+
+CMD ["java", "-jar", "/app/order-service.jar"]
